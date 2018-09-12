@@ -40,6 +40,9 @@ variables <- stack("bio/bio_1", "bio/bio_12") # stack of variables
 
 M <- readOGR(dsn = ".", layer = "acc_area")# accessible area (M), or calibration area
 
+# if M is a raster layer use
+# M <- raster("acc_area.asc")
+
 # masking variables to the calibration area
 m_variables <- mask(varaibles, M)
 

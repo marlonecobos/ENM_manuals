@@ -1,10 +1,15 @@
-ENM manuals: R tools
-================
-2018-09-11
+---
+title: "ENM manuals: R tools"
+date: "`r Sys.Date()`"
+output:
+  github_document:
+    toc: yes
+    toc_depth: 4
+---
 
--   [Description](#description)
--   [Data cleaning](#data-cleaning)
--   [Variables processing](#variables-processing)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 <br>
 
@@ -20,14 +25,14 @@ All available scripts for performing data cleaning (cleaning of species occurren
 
 List of scripts in this section:
 
--   <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Environmental_outlier_detection.R" target="_blank">Environmental oulier detection.</a>
+- <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Environmental_outlier_detection.R" target="_blank">Environmental oulier detection.</a>
 
 <br>
 
-### Variables processing
+### Variables processing 
 
 To see all available scripts for processing environmental variables (predictors) that can be used in ENMs go to the following <a href="https://github.com/marlonecobos/ENM_manuals/tree/master/Variables_processing" target="_blank">link</a>.
 
 List of scripts in this section:
 
--   <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Variables_processing/Variables_correlation_evaluation.R" target="_blank">Variables correlation analysis.</a>
+- <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Variables_processing/Variables_correlation_evaluation.R" target="_blank">Variables correlation analysis.</a>
