@@ -12,13 +12,13 @@
 ## Mean annual temperature and Annual Precipitation. These varaibles can be in 
 ## GeoTiff format as well.
 
-## (3) The region of interest, accessioble area (M), or calibration area.
+## (3) The region of interest, accessible area (M), or calibration area.
 ## This area can be a shapefile or a raster layer; for purposes of demonstration
 ## we will use a shapefile, however, lines of code for using a raster layer are
 ## written as comments.
 
 ## Note: Coordinates must coincide with the projection of the environmental data.
-## Projection of accessible area and variables must also be the same.
+## Projection of accessible area and variables must also be the same projection.
 ## We suggest to work with Geographic projection WGS84, with no planar projection.
 
 
