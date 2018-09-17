@@ -10,10 +10,10 @@
 ## ID, Species_name, Longitud, Latitud.
 
 # defining working directory
-setwd("C:/Users/Marlon/Documents/R/Data_cleaning") # change this to your working directory
+setwd("D:/Marlon/R/Data_cleaning") # change this to your working directory
 
 # reading data
-occurrences <- read.csv("Cynomys_ludovicianus_Exercise.csv") # occurrences
+occurrences <- read.csv("sp_occ.csv") # occurrences
 
 # Excluding records with no coordinates
 occurrences <- occurrences[!is.na(occurrences$long) | !is.na(occurrences$lat), ]
@@ -40,3 +40,6 @@ decimalplaces <- function(x) {
 
 occurrences <- occurrences[sapply(occurrences$long, decimalplaces) > 2 & # keep only the ones with more than 2 decimals
                              sapply(occurrences$lat, decimalplaces) > 2, ]
+
+# saving the new set of occurrences inide continents and area of interest
+write.csv(occurrences, "sp_occ_init_correct.csv", row.names = FALSE)

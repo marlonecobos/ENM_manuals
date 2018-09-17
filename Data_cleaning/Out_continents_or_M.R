@@ -32,10 +32,10 @@ if (length(req_packages) > 0) {
 sapply(pcakages, require, character.only = TRUE)
 
 # defining working directory
-setwd("C:/Users/Marlon/Documents/R/Data_cleaning") # change this to your working directory
+setwd("D:/Marlon/R/Data_cleaning") # change this to your working directory
 
 # reading data
-occurrences <- read.csv("Cynomys_ludovicianus_Exercise.csv") # occurrences
+occurrences <- read.csv("sp_occ.csv") # occurrences
 
 continents <- raster("bio/bio_1.asc") # representing the continents
 
@@ -79,4 +79,4 @@ points(occ_reg_inout[, 3], occ_reg_inout[, 4], col = "black",
 occurrences <- occurrences[occ_reg_inout$inside == TRUE, ]
 
 # saving the new set of occurrences inide continents and area of interest
-write.csv(occurrences, "Cynomys_ludovicianus_Exercise_inside.csv", row.names = FALSE)
+write.csv(occurrences, "sp_occ_inside.csv", row.names = FALSE)

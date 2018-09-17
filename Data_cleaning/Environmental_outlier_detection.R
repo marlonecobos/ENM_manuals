@@ -31,10 +31,10 @@ if (length(req_packages) > 0) {
 sapply(pcakages, require, character.only = TRUE)
 
 # defining working directory
-setwd("C:/Users/Marlon/Documents/R/Data_cleaning") # change this to your working directory
+setwd("D:/Marlon/R/Data_cleaning") # change this to your working directory
 
 # reading data
-occurrences <- read.csv("Cynomys_ludovicianus_Exercise.csv") # occurrences
+occurrences <- read.csv("sp_occ.csv") # occurrences
 
 variables <- stack("bio/bio_1.asc", "bio/bio_12.asc") # stack of variables
 
