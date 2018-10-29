@@ -1,5 +1,5 @@
 #####
-# Detecting environmental outliers in species occurrences
+# Evaluation of variables correlation
 #####
 
 # data needed 
