@@ -31,9 +31,9 @@ variables <- stack(varaibles_list) # stack of variables
 # getting data from the variables
 variables_values <- na.omit(values(variables))
 
-# sample of 10000 values if more pixels exist
+# sample of 10000 values if more pixels exist (optional)
 if (dim(variables_values > 10000)) {
-  variables_values <- variables_values[sample(rownames(variables_values), 10000), ] 
+  variables_values <- variables_values[sample(1:nrow(variables_values), 10000), ] 
 } 
 
 # correlation matrix calculation
@@ -41,7 +41,7 @@ correlation_matrix <- cor(variables_values)
 
 # saving correlation matrix
 write.csv(correlation_matrix, "variables_correlation_matrix.csv",
-          row.names = FALSE)
+          row.names = TRUE)
 
 # detecting correlated varaibles more easily
 correlation_matrix1 <- correlation_matrix # making other table with results
@@ -58,11 +58,17 @@ for (i in 1:dim(correlation_matrix1)[2]) { #correlated values will turn into 2 f
 # #checking the table
 View(correlation_matrix1) # selection should be done manually, 2 = correlated
 
+# saving correlation matrix
+write.csv(correlation_matrix1, "variables_correlation_matrix2.csv",
+          row.names = TRUE)
+
 # selecting variables and writing them in a new directory
+names(variables) # names
+
 selected_variables <- variables[[c("bio_1", "bio_4", "bio_7", # select only non-correlated ones
                                    "bio_12", "bio_15", "bio_17")]] 
 
-variable_names <- paste("Non_cor_variables/", names(selected_variables), # names of variables
+variable_names <- paste("Non_correlated_variables/", names(selected_variables), # names of variables
                         ".asc", sep = "") 
 
 dir.create("Non_correlated_variables") # create the folder for saving these variables
