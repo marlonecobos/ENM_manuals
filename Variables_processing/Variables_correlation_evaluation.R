@@ -32,7 +32,7 @@ variables <- stack(varaibles_list) # stack of variables
 variables_values <- na.omit(values(variables))
 
 # sample of 10000 values if more pixels exist (optional)
-if (dim(variables_values > 10000)) {
+if (dim(variables_values)[1] > 10000) {
   variables_values <- variables_values[sample(1:nrow(variables_values), 10000), ] 
 } 
 
