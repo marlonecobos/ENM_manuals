@@ -5,7 +5,11 @@
 #' scenarios.
 #' 
 #' @param vars.folder (character) name of the folder where the environmental variables are. Variables
-#' must be in ascii format and at least two. 
+#' must be in ascii format and at least two.
+#' @param in.format (character) format of variables in \code{var.dir}. Options are "ascii", "GTiff", and "EHdr" = bil.
+#' Default = "ascii".
+#' @param out.format (character) format of variables to be written in distinct sets inside \code{out.dir}.
+#' Options are "ascii", "GTiff", and "EHdr" = bil. Default = "ascii". 
 #' @param project (logical) whether or not to project the species niche to other scenario(s).
 #' If TRUE, argument \code{proj.variables} needs to be defined. Default = FALSE.
 #' @param multiple.proj (logical) whether or not the projection should be performed for various
@@ -23,7 +27,7 @@
 #' Default = "PCA_results".
 #' 
 #' @return 
-#' A list containing the PCA loading and PCA results as a matrix; if \code{return.in} = TRUE a RasterLayer
+#' A list containing the PCA loading and PCA summary as a matrix; if \code{return.in} = TRUE a RasterLayer
 #' (if not projected) or a RasterStack (if projected) of the principal components are returned additionally.
 #' All results are written in \code{out.dir}.
 #' 
@@ -35,8 +39,8 @@
 #' # Arguments
 
 
-kuenm_rpca <- function(vars.folder, project = FALSE, multiple.proj = FALSE, proj.vars, return.in = FALSE, 
-                       n.pcs, out.dir = "PCA_results") {
+kuenm_rpca <- function(vars.folder, in.format = "ascii", out.format = "ascii", project = FALSE, 
+                       multiple.proj = FALSE, proj.vars, return.in = FALSE, n.pcs, out.dir = "PCA_results") {
   pcakages <- c("raster")
   req_packages <- pcakages[!(pcakages %in% installed.packages()[, "Package"])]
   if (length(req_packages) > 0) {
@@ -51,9 +55,27 @@ kuenm_rpca <- function(vars.folder, project = FALSE, multiple.proj = FALSE, proj
       stop("If projections are needed, argument proj.vars must be defined. See functions help.")
     }
   }
+  if (in.format == "ascii") {
+    patt <- ".asc$"
+  }
+  if (in.format == "GTiff") {
+    patt <- ".tif$"
+  }
+  if (in.format == "EHdr") {
+    patt <- ".bil$"
+  }
+  if (out.format == "ascii") {
+    patt1 <- ".asc"
+  }
+  if (out.format == "GTiff") {
+    patt1 <- ".tif"
+  }
+  if (out.format == "EHdr") {
+    patt1 <- ".bil"
+  }
   
   # reading variables
-  var <- list.files(vars.folder, pattern = ".asc$", full.names = TRUE)
+  var <- list.files(vars.folder, pattern = patt, full.names = TRUE)
   
   variab <- raster::stack(var)
   var_points <- na.omit(raster::values(variab))
@@ -77,8 +99,8 @@ kuenm_rpca <- function(vars.folder, project = FALSE, multiple.proj = FALSE, proj
   for (i in 1:n.pcs) {
     pcra <- variab[[1]]
     pcra[!is.na(raster::values(pcra))] <- scores[, i]
-    filenam <- paste(pca_fol, "/pc_", i, ".asc", sep = "")
-    raster::writeRaster(pcra, filenam, format = "ascii")
+    filenam <- paste(pca_fol, "/pc_", i, patt1, sep = "")
+    raster::writeRaster(pcra, filenam, format = out.format)
     
     if (return.in == TRUE) {
       pcras[[i]] <- pcra
@@ -121,7 +143,7 @@ kuenm_rpca <- function(vars.folder, project = FALSE, multiple.proj = FALSE, proj
     }
     
     for (h in 1:length(proj_dirs)) {
-      pvar <- list.files(proj_dirs[h], pattern = ".asc$", full.names = TRUE)
+      pvar <- list.files(proj_dirs[h], pattern = patt, full.names = TRUE)
       p_stack <- raster::stack(pvar)
       dir.create(fol_names[h])
       
@@ -136,8 +158,8 @@ kuenm_rpca <- function(vars.folder, project = FALSE, multiple.proj = FALSE, proj
       for (i in 1:n.pcs) {
         pcra <- p_stack[[1]]
         pcra[!is.na(raster::values(pcra))] <- p_pcs[, i]
-        filenam <- paste(fol_names, "/pc_", i, ".asc", sep = "")
-        raster::writeRaster(pcra, filenam, format = "ascii")
+        filenam <- paste(fol_names, "/pc_", i, patt1, sep = "")
+        raster::writeRaster(pcra, filenam, format = out.format)
         
         if (return.in == TRUE) {
           ppcras[[i]] <- pcra
