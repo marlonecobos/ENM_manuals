@@ -158,7 +158,7 @@ kuenm_rpca <- function(vars.folder, in.format = "ascii", out.format = "ascii", p
       for (i in 1:n.pcs) {
         pcra <- p_stack[[1]]
         pcra[!is.na(raster::values(pcra))] <- p_pcs[, i]
-        filenam <- paste(fol_names, "/pc_", i, patt1, sep = "")
+        filenam <- paste(fol_names[h], "/pc_", i, patt1, sep = "")
         raster::writeRaster(pcra, filenam, format = out.format)
         
         if (return.in == TRUE) {
