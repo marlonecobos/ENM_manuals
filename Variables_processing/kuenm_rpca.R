@@ -40,7 +40,7 @@
 
 
 kuenm_rpca <- function(vars.folder, in.format = "ascii", out.format = "ascii", project = FALSE, 
-                       multiple.proj = FALSE, proj.vars, return.in = FALSE, n.pcs, out.dir = "PCA_results") {
+                       proj.vars, return.in = FALSE, n.pcs, out.dir = "PCA_results") {
   pcakages <- c("raster")
   req_packages <- pcakages[!(pcakages %in% installed.packages()[, "Package"])]
   if (length(req_packages) > 0) {
