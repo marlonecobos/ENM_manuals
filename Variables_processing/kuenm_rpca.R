@@ -21,8 +21,8 @@
 #' must correspond but they should represent conditions in the LGM).
 #' @param return.in (logical) whether or not return raster layers of principal components to
 #' the R environment in a list with other results.
-#' @param n.pcs (numeric) if \code{proj.variables} = TRUE, number of principal components to be 
-#' returned as rasters. By default all principal components are returned as layers.
+#' @param n.pcs (numeric) number of principal components to be returned as rasters. By default all principal 
+#' components are returned as RasterLayers.
 #' @param out.dir (character) name of the folder to be created to save the results of the analyses.
 #' Default = "PCA_results".
 #' 
@@ -89,12 +89,15 @@ kuenm_rpca <- function(vars.folder, in.format = "ascii", out.format = "ascii", p
   pca_fol <- paste(out.dir, "Initial", sep = "/")
   dir.create(pca_fol)
   
+  if (missing(n.pcs)) {
+    n.pcs <- length(var)
+  }
+  
   if (return.in == TRUE) {
     pcras <- list()
-    if (missing(n.pcs)) {
-      n.pcs <- length(var)
-    }
   }
+  
+  cat("\nWriting raster PCs in Output folder, please wait...\n")
   
   for (i in 1:n.pcs) {
     pcra <- variab[[1]]
@@ -142,6 +145,8 @@ kuenm_rpca <- function(vars.folder, in.format = "ascii", out.format = "ascii", p
       ppcrass <- list()
     }
     
+    cat("\nProjecting and writing projected raster PCs in Output folder, please wait...\n")
+    
     for (h in 1:length(proj_dirs)) {
       pvar <- list.files(proj_dirs[h], pattern = patt, full.names = TRUE)
       p_stack <- raster::stack(pvar)
@@ -186,5 +191,6 @@ kuenm_rpca <- function(vars.folder, in.format = "ascii", out.format = "ascii", p
     names(results) <- c("PCA_loadings", "PCA_results")
   }
   
+  cat("\nRaster PCA finished. Check your output directory", paste(getwd(), out.dir, sep = "/"), "\n")
   return(results)
 }
