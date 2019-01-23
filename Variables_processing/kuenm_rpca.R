@@ -12,13 +12,10 @@
 #' Options are "ascii", "GTiff", and "EHdr" = bil. Default = "ascii". 
 #' @param project (logical) whether or not to project the species niche to other scenario(s).
 #' If TRUE, argument \code{proj.variables} needs to be defined. Default = FALSE.
-#' @param multiple.proj (logical) whether or not the projection should be performed for various
-#' scenarios. If TRUE, argument \code{proj.vars} changes; see below. Default = FALSE.
-#' @param proj.vars (character) If \code{multiple.proj} is FALSE, name of the folder where  
-#' environmental variables of the scenario for projection are. If \code{multiple.proj} is TRUE, name of 
-#' the folder where folders with environmental variables of the scenarios for projections are. Variables 
-#' must be in ascii format and they must correspond with variables in \code{vars.folder} (i.e., their name 
-#' must correspond but they should represent conditions in the LGM).
+#' @param proj.vars (character or RasterStack) if character, name of the folder where subfolders with environmental 
+#' variables of scenarios for projections are (useful if multiple projections are needed). If RasterStack, object 
+#' containing stacked variables of only one projection scenario. Variables must correspond with variables in \code{vars.folder} 
+#' (i.e., their name must correspond but they should represent conditions in other scenario).
 #' @param return.in (logical) whether or not return raster layers of principal components to
 #' the R environment in a list with other results.
 #' @param n.pcs (numeric) number of principal components to be returned as rasters. By default all principal 
@@ -27,8 +24,9 @@
 #' Default = "PCA_results".
 #' 
 #' @return 
-#' A list containing the PCA loading and PCA summary as a matrix; if \code{return.in} = TRUE a RasterLayer
-#' (if not projected) or a RasterStack (if projected) of the principal components are returned additionally.
+#' A list containing PCA summary and PCA loadings as matrices; if \code{return.in} = TRUE, one or multiple (if projected)
+#' RasterStacks of principal components are returned additionally.
+#' 
 #' All results are written in \code{out.dir}.
 #' 
 #' @details 
@@ -137,19 +135,32 @@ kuenm_rpca <- function(vars.folder, in.format = "ascii", out.format = "ascii", p
   
   # projecting PCs
   if (project == TRUE) {
-    proj_dirs <- list.dirs(proj.vars, recursive = FALSE)
-    proj_names <- list.dirs(proj.vars, recursive = FALSE, full.names = FALSE)
-    fol_names <- paste(out.dir, proj_names, sep = "/")
-    
     if (return.in == TRUE) {
       ppcrass <- list()
     }
     
     cat("\nProjecting and writing projected raster PCs in Output folder, please wait...\n")
     
+    if (class(proj.vars)[1] == "character") {
+      proj_dirs <- list.dirs(proj.vars, recursive = FALSE)
+      proj_names <- list.dirs(proj.vars, recursive = FALSE, full.names = FALSE)
+      fol_names <- paste(out.dir, proj_names, sep = "/")
+    } 
+    if (class(proj.vars)[1] %in% c("RasterStack", "RasterBrick")) {
+      proj_dirs <- "projection"
+      proj_names <- "Projected_PCs"
+      fol_names <- paste(out.dir, proj_names, sep = "/")
+    }
+    
+    
     for (h in 1:length(proj_dirs)) {
-      pvar <- list.files(proj_dirs[h], pattern = patt, full.names = TRUE)
-      p_stack <- raster::stack(pvar)
+      if (class(proj.vars)[1] == "character") {
+        pvar <- list.files(proj_dirs[h], pattern = patt, full.names = TRUE)
+        p_stack <- raster::stack(pvar)
+      } 
+      if (class(proj.vars)[1] %in% c("RasterStack", "RasterBrick")) {
+        p_stack <- proj.vars
+      }
       dir.create(fol_names[h])
       
       if (return.in == TRUE) {
