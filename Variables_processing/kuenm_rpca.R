@@ -186,7 +186,10 @@ kuenm_rpca <- function(vars.folder, in.format = "ascii", out.format = "ascii", p
         ppcrass[[h]] <- do.call(raster::stack, ppcras)
       }
     }
-    names(ppcrass) <- paste("PCRasters", proj_names, sep = "_")
+    
+    if (return.in == TRUE) {
+      names(ppcrass) <- paste("PCRasters", proj_names, sep = "_")
+    }
   }
   
   if (return.in == TRUE) {
