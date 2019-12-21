@@ -1,6 +1,6 @@
 ---
 title: "ENM manuals: R tools"
-date: "`r Sys.Date()`"
+author: "Marlon E. Cobos"
 output:
   github_document:
     toc: yes
@@ -48,7 +48,7 @@ List of scripts in this section:
 
 ### Delimitation of areas for model calibration (M)
 
-In this section scripts that allow users to create distinct hypotheses of **M** (areas for model calibration) are stores. See all scripts <a href="https://github.com/marlonecobos/ENM_manuals/tree/master/M_hypotheses" target="_blank">here</a>.
+In this section scripts that allow users to create distinct hypotheses of **M** (areas for model calibration) are stored. See all scripts <a href="https://github.com/marlonecobos/ENM_manuals/tree/master/M_hypotheses" target="_blank">here</a>.
 
 List of scripts in this section:
 

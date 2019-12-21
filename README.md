@@ -1,6 +1,6 @@
 ENM manuals: R tools
 ================
-2019-12-20
+Marlon E. Cobos
 
   - [Description](#description)
   - [ENM manual sections](#enm-manual-sections)
@@ -76,7 +76,7 @@ List of scripts in this
 ### Delimitation of areas for model calibration (M)
 
 In this section scripts that allow users to create distinct hypotheses
-of **M** (areas for model calibration) are stores. See all scripts
+of **M** (areas for model calibration) are stored. See all scripts
 <a href="https://github.com/marlonecobos/ENM_manuals/tree/master/M_hypotheses" target="_blank">here</a>.
 
 List of scripts in this
