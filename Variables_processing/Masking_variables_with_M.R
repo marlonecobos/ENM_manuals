@@ -3,12 +3,10 @@
 #########
 
 # Description
-## The following script helps to mask a set of raster layers to be used . 
+## The following script helps to mask a set of raster layers to be used in further
+## analyses in Ecological niche modeling exercises. 
 
 ## No data is needed if internet conection is available.
-
-## Examples in which raster layers are masked to the polygons obtained (during) 
-## the same process are also shown.
 
 ## The main processes are performed the package ellisenm from GitHub. To install
 ## this package see instructions in https://github.com/marlonecobos/ellipsenm.
@@ -42,8 +40,11 @@ library(ellipsenm)
 ## project forlder
 setwd("Z:/Marlon_E_Cobos/ENM_project") # Your folder
 
+# raster layes (only 6 coarse resolution)
+variables <- getData("worldclim", var = "bio", res = "10")[[c(1, 10, 11, 12, 16, 17)]] # stack of variables
 
-# assuming that you still don't have an M the occurrence data 
+
+# assuming that you still don't have an M, here is an example 
 sp <- "Cynomys mexicanus" # species name
 
 occ <- occ(query = sp, from = "gbif", limit = 1000) # getting data
@@ -58,3 +59,27 @@ occ_g <- occg[, c("name", "longitude", "latitude")] # only these three columns
 ## the following line will spatially rarefy the data (thinning) distance = 10 km
 occ_t <- thin_data(occ_g, longitude = "longitude", latitude = "latitude", 
                    thin_distance = 10)
+
+## the M
+M <- convex_area(occ_t, longitude = "longitude", latitude = "latitude", 
+                 buffer_distance = 75)
+
+
+#######################################################################################
+# Masking and saving layers
+##################
+
+# masking variables
+var_mask <- mask(crop(variables, M_intersect), M_intersect)
+
+# saving masked variables  
+## new directory
+dir.create("Masked_layers")
+
+## names for layers
+rnames <- paste0("Masked_layers/", names(variables), ".asc") # users select the format
+
+## saving layers in new folder
+sav <- lapply(1:nlayers(var_mask), function(x) {
+  writeRaster(var_mask[[x]], filename = rnames, format = "ascii") # change format accordingly
+})
