@@ -1,13 +1,10 @@
 #########
-# Creating hypothesis of areas for model calibration (M)
+#  M by intersection of multiple M-hypotheses
 #########
 
 # Description
-## The following script helps to create spatial polygons to represent areas for
-## calibration of ecological niche models four types of areas will be created in
-## this example: (1) using buffers; (2) creating convex hulls, (3) creating
-## concave hulls, and (4) selecting polygons from a layer of spatial plygons that
-## represent ecorregions. 
+## The following script helps to create an area for model calibration based on 
+## the intersection of multiple hypotheses of M. 
 
 ## No data is needed if internet conection is available.
 
@@ -28,6 +25,10 @@ suppressWarnings({
   if(!require(rgdal)){
     install.packages("rgdal")
     library(rgdal)
+  }
+  if(!require(rgeos)){
+    install.packages("rgeos")
+    library(rgeos)
   }
 }) 
 
@@ -70,7 +71,7 @@ file.remove(file.path(getwd(), "wwf_ecoregions.zip"))
 ecor <- readOGR("WWF_ecoregions/official", layer = "wwf_terr_ecos")
 
 #######################################################################################
-# Creating Ms only
+# Creating Ms as initial hypotheses
 ##################
 
 # Before using the following functions, make sure you check their documentation
@@ -90,19 +91,26 @@ M_convex <- convex_area(occ_t, longitude = "longitude", latitude = "latitude",
                         buffer_distance = 75)
 
 #####
-# Areas using concave hulls (including 75 km buffer)
-M_concave <- concave_area(occ_t, longitude = "longitude", latitude = "latitude", 
-                          buffer_distance = 75)
-
-#####
 # Areas by selecting polygons (including 25 km buffer)
 M_ecorreg <- polygon_selection(occ_t, longitude = "longitude", latitude = "latitude",
                                polygons = ecor, buffer_distance = 25)
 
 
-# check all your results
+#######################################################################################
+# Intersecting to obtain an consensus M
+##################
+
+# intersection
+M_intersect <- gIntersection(M_buffer, M_convex)
+M_intersect <- gIntersection(M_intersect, M_ecorreg)
+
+# visualization
 par(mfrow = c(2, 2), cex = 0.6, mar = rep(0.3, 4))
 plot(M_buffer); points(occ_t[, 2:3]); legend("topleft", legend = "Buffer", bty = "n")
 plot(M_convex); points(occ_t[, 2:3]); legend("topleft", legend = "Convex hull", bty = "n")
-plot(M_concave); points(occ_t[, 2:3]); legend("topleft", legend = "Concave hull", bty = "n")
 plot(M_ecorreg); points(occ_t[, 2:3]); legend("topleft", legend = "Ecorregions", bty = "n")
+plot(M_intersect); points(occ_t[, 2:3]); legend("topleft", legend = "Intersection", bty = "n")
+
+
+# saving final product
+writeOGR(M_intersect, ".", "M_intersection", driver = "ESRI Shapefile")
