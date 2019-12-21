@@ -82,10 +82,10 @@ of **M** (areas for model calibration) are stores. See all scripts
 List of scripts in this
     section:
 
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Construction_of_simple_Ms.R" target="_blank">Simple
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/M_hypotheses/Construction_of_simple_Ms.R" target="_blank">Simple
     hypotheses of
     M</a>
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/M_from_polygon_intersection.R" target="_blank">M
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/M_hypotheses/M_from_polygon_intersection.R" target="_blank">M
     based on intersections of multiple hypotheses</a>
 
 <br>
@@ -118,17 +118,17 @@ List of scripts in this
 Scripts in this section help to automate critical steps of ecological
 niche modeling. All available scripts for performing the analyses can be
 seen
-<a href="https://github.com/marlonecobos/ENM_manuals/tree/master/Data_cleaning" target="_blank">here</a>.
+<a href="https://github.com/marlonecobos/ENM_manuals/tree/master/ENM_process" target="_blank">here</a>.
 
 List of scripts in this
     section:
 
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Model_calibration.R" target="_blank">Model
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Model_calibration.R" target="_blank">Model
     calibration</a>
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Final_models.R" target="_blank">Final
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Final_models.R" target="_blank">Final
     model creation and
     projections</a>
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Final_model_evaluation.R" target="_blank">Final
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Final_model_evaluation.R" target="_blank">Final
     model evaluation (optional step)</a>
 
 <br>
@@ -144,19 +144,19 @@ interpretations more straightforward.
 All available scripts from this section can be seen
 <a href="https://github.com/marlonecobos/ENM_manuals/tree/master/Post_modeling" target="_blank">here</a>.
 
-List of scripts in this
-    section:
+List of scripts in this section (under
+    construction):
 
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Model_statistics.R" target="_blank">Summarizing
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Post_modeling/Model_statistics.R" target="_blank">Summarizing
     model outputs (descriptive
     statistics)</a>
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Model_variability.R" target="_blank">Layers
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Post_modeling/Model_variability.R" target="_blank">Layers
     of model variance coming from distinct
     sources</a>
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Model_variance_partitioning.R" target="_blank">Hierarchichal
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Post_modeling/Model_variance_partitioning.R" target="_blank">Hierarchichal
     partitioning of model
     variability</a>
-  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/MOP.R" target="_blank">Anlysis
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Post_modeling/MOP.R" target="_blank">Anlysis
     of extrapolation risks (MOP)</a>
 
 <br>
