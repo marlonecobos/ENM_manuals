@@ -5,7 +5,7 @@ Marlon E. Cobos
   - [Description](#description)
   - [ENM manual sections](#enm-manual-sections)
       - [Getting data](#getting-data)
-      - [Data cleaning](#data-cleaning)
+      - [Data cleaning and more](#data-cleaning-and-more)
       - [Delimitation of areas for model calibration
         (M)](#delimitation-of-areas-for-model-calibration-m)
       - [Variables processing](#variables-processing)
@@ -47,7 +47,7 @@ records from the GBIF data
 
 <br>
 
-### Data cleaning
+### Data cleaning and more
 
 Scripts in this section help to clean multiple types of errors that can
 be found in occurrence data sets. These errors decrease the quality of
@@ -69,7 +69,10 @@ List of scripts in this
     of occurrences outside of continents and/or calibration
     areas</a>
   - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Environmental_outlier_detection.R" target="_blank">Environmental
-    outlier detection</a>
+    outlier
+    detection</a>
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Thinning_split_train-test.R" target="_blank">Thinning
+    and splitting training and testing data</a>
 
 <br>
 
@@ -123,6 +126,9 @@ seen
 List of scripts in this
     section:
 
+  - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Evaluation_metrics.R" target="_blank">Evaluation
+    metrics (pROC, OR, AICc;
+    Examples)</a>
   - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Model_calibration.R" target="_blank">Model
     calibration</a>
   - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Final_models.R" target="_blank">Final

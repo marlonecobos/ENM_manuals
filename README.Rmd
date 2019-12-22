@@ -32,7 +32,7 @@ Currently only one script is available in <a href="https://github.com/marlonecob
 
 <br>
 
-### Data cleaning
+### Data cleaning and more
 
 Scripts in this section help to clean multiple types of errors that can be found in occurrence data sets. These errors decrease the quality of results obtained when creating ENMs and can lead to misleading conclusions; hence, data cleaning processes need to be done carefully and consciously. 
 
@@ -43,6 +43,8 @@ List of scripts in this section:
 - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Occurrences_initial_corrections.R" target="_blank">Initial corrections to occurrence data</a>
 - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Out_continents_or_M.R" target="_blank">Correction of occurrences outside of continents and/or calibration areas</a> 
 - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Environmental_outlier_detection.R" target="_blank">Environmental outlier detection</a>
+- <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/Data_cleaning/Thinning_split_train-test.R" target="_blank">Thinning and splitting training and testing data</a>
+
 
 <br>
 
@@ -76,6 +78,7 @@ Scripts in this section help to automate critical steps of ecological niche mode
 
 List of scripts in this section:
 
+- <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Evaluation_metrics.R" target="_blank">Evaluation metrics (pROC, OR, AICc; Examples)</a>
 - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Model_calibration.R" target="_blank">Model calibration</a>
 - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Final_models.R" target="_blank">Final model creation and projections</a> 
 - <a href="https://github.com/marlonecobos/ENM_manuals/blob/master/ENM_process/Final_model_evaluation.R" target="_blank">Final model evaluation (optional step)</a> 

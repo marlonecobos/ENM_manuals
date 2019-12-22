@@ -77,11 +77,11 @@ kuenm_mod(occ.joint = occ_joint, M.var.dir = M_var_dir, out.eval = out_eval,
 occ_joint <- "aame_joint.csv"
 M_var_dir <- "M_variables"
 out_eval <- "Calibration_results"
-batch_fin <- "Final_models_code"
+batch_fin <- "Final_models_code1"
 rep_n <- 10
 rep_type <- "Bootstrap"
 jackknife <- TRUE
-mod_dir <- "Final_Models"
+mod_dir <- "Final_Models1"
 out_format <- "logistic"
 project <- TRUE
 G_var_dir <- "G_variables"
