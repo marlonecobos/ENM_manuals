@@ -3,7 +3,11 @@
 #########
 
 # Description
-## The following script helps to 
+## The following script helps to run examples of evaluation metrics for ecological
+## niche models. Partial ROC and omission rates can be applied to different model
+## outputs. AICc can be applied to models from Maxent or the ones in which the
+## number of parameters is known, but users have to consider that such metric is
+## applied on raster predictions and not in the data used to fit the model.
 
 ## No data is needed if the kuenm package is installed.
 

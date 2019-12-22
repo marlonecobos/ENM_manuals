@@ -94,14 +94,12 @@ rand_percent <- 50
 iterations <- 500
 kept <- TRUE
 selection <- "OR_AICc"
-paral_proc <- FALSE 
 
 ## runing candidate models
 cal_eval <- kuenm_ceval(path = out_dir, occ.joint = occ_joint, occ.tra = occ_tra, 
                         occ.test = occ_test, batch = batch_cal, out.eval = out_eval, 
                         threshold = threshold, rand.percent = rand_percent, 
-                        iterations = iterations, kept = kept, selection = selection, 
-                        parallel.proc = paral_proc)
+                        iterations = iterations, kept = kept, selection = selection)
 
 # CHECK RESULTS IN WORKING DIRECTORY AND IN THE OBJECT CREATED BEFORE.
 # NEXT STEP IS CREATION OF FINAL MODELS
