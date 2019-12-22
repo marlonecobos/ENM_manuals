@@ -67,8 +67,8 @@ occ_tra <- "aame_train.csv"
 M_var_dir <- "M_variables"
 batch_cal <- "Candidate_models"
 out_dir <- "Candidate_Models"
-reg_mult <- c(seq(0.1, 1, 0.1), seq(2, 6, 1), 8, 10)
-f_clas <- "all"
+reg_mult <- c(seq(0.1, 1, 0.3), seq(2, 5, 1))
+f_clas <- c("lq", "lp", "q", "qp", "lqp")
 args <- NULL # e.g., "maximumbackground=20000" for increasing the number of pixels in the bacground or
              # note that some arguments are fixed in the function and should not be changed
 maxent_path <- "YOUR/DIRECTORY" # where Maxent is
@@ -91,7 +91,7 @@ occ_test <- "aame_test.csv"
 out_eval <- "Calibration_results"
 threshold <- 5
 rand_percent <- 50
-iterations <- 100
+iterations <- 500
 kept <- TRUE
 selection <- "OR_AICc"
 paral_proc <- FALSE 
@@ -103,5 +103,5 @@ cal_eval <- kuenm_ceval(path = out_dir, occ.joint = occ_joint, occ.tra = occ_tra
                         iterations = iterations, kept = kept, selection = selection, 
                         parallel.proc = paral_proc)
 
-# CHECK RESULTS IN WORKING DIRECTORY AND IN THE OBJECTE CREATED BEFORE.
+# CHECK RESULTS IN WORKING DIRECTORY AND IN THE OBJECT CREATED BEFORE.
 # NEXT STEP IS CREATION OF FINAL MODELS
