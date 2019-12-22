@@ -81,5 +81,5 @@ rnames <- paste0("Masked_layers/", names(variables), ".asc") # users select the 
 
 ## saving layers in new folder
 sav <- lapply(1:nlayers(var_mask), function(x) {
-  writeRaster(var_mask[[x]], filename = rnames, format = "ascii") # change format accordingly
+  writeRaster(var_mask[[x]], filename = rnames[x], format = "ascii") # change format accordingly
 })
