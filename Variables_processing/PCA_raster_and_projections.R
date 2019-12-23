@@ -2,43 +2,124 @@
 # Creating raster pcs and their projections (if needed) from raster variables
 #####
 
-# data needed 
-## Environmental raster layers, in this example we will use a set of ascii 
-## layers located in the folder (reduced_variables) in our working directory. 
+# Description
+## The following script helps to perform a Pricipal Component Analysis (PCA) on
+## raster layers. The product are statistical results and raster Principal 
+## Components that can be used as predictors in further processes. This script 
+## also helps in projecting such Principal Components to other raster layers,
+## so the Principal Components for the projected layers can be comparable to the 
+## initial ones.
 
-## If pcs need to be projected to other scenarios, then a folder containing folders with 
-## variables representing other scenarios is needed as well.
+## Note: Variables from each scenario must have the same projection, extent, and 
+## resolution. We suggest to work with Geographic projections WGS84, with no 
+## planar projection.
 
-## Variables can be ascii, tif, or bil files.
+## The main processes are performed the package kuenm from GitHub. To install
+## this package see instructions in https://github.com/marlonecobos/kuenm.
 
-## Note: All variables must have the same projection, extent, and resolution.
-## We suggest to work with Geographic projections WGS84, with no planar projection.
+# loading needed packages (packages will be automatically installed if required)
+suppressWarnings({
+  if(!require(raster)){
+    install.packages("raster")
+    library(raster)
+  }
+}) 
 
-source("https://raw.githubusercontent.com/marlonecobos/ENM_manuals/master/Variables_processing/kuenm_rpca.R")
+# loading needed package
+# assuming that you installed kuenm, load it, if not installed see 
+# https://github.com/marlonecobos/kuenm for instructions
+library(kuenm)
 
-setwd("YOUR/DIRECTORY")
 
-# no variable projections to distinct scenarios needed
+#######################################################################################
+# Preparing directory and data
+##################
 
-var_folder <- "reduced_variables" # name of folder with variables to be combined in distinct sets
-out_folder <- "PCA_results" # name of folder that will contain the sets 
+# defining working directory
+setwd("D:/Marlon/Variables_processing/") # change this to your working directory
+
+# IF YOU HAVE THE DATA IN YOUR DIRECTORY AS DESCRIBED BELOW, USE THIS
+# variables need to be saved in a subdirectory named "bio", variables must be in 
+# ascii format (.asc)
+
+## reading data
+varaibles_list <- list.files(path = "bio", pattern = ".asc", # vector of variables
+                             full.names = TRUE)
+
+variables <- stack(varaibles_list) # stack of variables
+
+
+# IF YOU DON'T HAVE THE DATA, USE THIS
+## download data
+variables <- getData("worldclim", var = "bio", res = 10)[[-c(8, 9, 18, 19)]]
+
+## crop the variables to an "invented" area for model calibration
+ext <- extent(-105, -85, 5, 25)
+cvariables <- crop(variables, ext)
+
+## create the folder for saving cropped variables
+dir.create("Crop_variables") 
+
+## names of variables
+variable_names <- paste0("Crop_variables/", names(cvariables), ".asc") 
+
+## writing selected variables
+for (i in 1:length(variable_names)) {
+  writeRaster(cvariables[[i]], filename = variable_names[i], format = "ascii")
+}
+
+# for projections
+## create the folder for saving world variables
+dir.create("World_variables") 
+
+## names of variables
+variable_names <- paste0("World_variables/", names(variables), ".asc") 
+
+## writing selected variables
+for (i in 1:length(variable_names)) {
+  writeRaster(variables[[i]], filename = variable_names[i], format = "ascii")
+}
+
+
+#######################################################################################
+# Preparing sets of variables
+##################
+
+# simple raster PCA
+## functions help
+help(kuenm_rpca)
+
+## preparing function's arguments
+var_folder <- "Crop_variables" # name of folder with variables to be combined in distinct sets
 in_format <- "ascii" # other options available are "GTiff" and "EHdr" = bil 
+scalev <- TRUE # scale variables
+writer <- TRUE # save results
 out_format <- "ascii" # other options available are "GTiff" and "EHdr" = bil
+out_folder <- "PCA_results" # name of folder that will contain the sets 
 n_pcs <- 6 # number of pcs you want as rasters, if not defined all pcs are returned as rasters
 
-kuenm_rpca(vars.folder = var_folder, in.format = "ascii", out.format = "ascii", project = FALSE, 
-           n.pcs = n_pcs, out.dir = out_folder)
+
+## runing PCA
+kuenm_rpca(variables = var_folder, in.format = in_format, var.scale = scalev, 
+           write.result = writer, out.format = out_format, out.dir = out_folder,
+           n.pcs = n_pcs)
 
 
 
-# ifvariable projections to distinct scenarios are needed
-
-var_folder <- "reduced_variables" # name of folder with variables to be combined in distinct sets
-proj_folder <- "scenarios" # name of the folder containing one or more folders with variables for other scenarios
-out_folder <- "PCA_results" # name of folder that will contain the sets 
+# raster PCA with projections
+## preparing function's arguments
+var_folder <- "Crop_variables" # name of folder with variables to be combined in distinct sets
 in_format <- "ascii" # other options available are "GTiff" and "EHdr" = bil 
+scalev <- TRUE # scale variables
+writer <- TRUE # save results
 out_format <- "ascii" # other options available are "GTiff" and "EHdr" = bil
+out_folder <- "PCA_results_proj" # name of folder that will contain the sets 
+project <- TRUE
+proj_folder <- "World_variables"
 n_pcs <- 6 # number of pcs you want as rasters, if not defined all pcs are returned as rasters
 
-kuenm_rpca(vars.folder = var_folder, in.format = "ascii", out.format = "ascii", project = TRUE, 
-           proj.vars = proj_folder, n.pcs = n_pcs, out.dir = out_folder)
+
+## runing PCA
+kuenm_rpca(variables = var_folder, in.format = in_format, var.scale = scalev, 
+           write.result = writer, out.format = out_format, out.dir = out_folder,
+           project = project, proj.vars = proj_folder, n.pcs = n_pcs)

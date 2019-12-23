@@ -33,7 +33,7 @@ library(ellipsenm)
 # defining working directory
 setwd("D:/Marlon/Variables_processing/") # change this to your working directory
 
-# IF YOU HAVE THE DATA IN YOUR DIRECTORY AS DESCRIBED ABOVE, USE THIS
+# IF YOU HAVE THE DATA IN YOUR DIRECTORY AS DESCRIBED BELOW, USE THIS
 # variables need to be saved in a subdirectory named "bio", variables must be in 
 # ascii format (.asc)
 
@@ -57,6 +57,8 @@ variables <- crop(variables, ext)
 # Varriable correlation analysis
 ##################
 
+# functions help
+help(variable_correlation)
 # to save matrix correlation results see the arguments "save" and "name"
 
 # correlation matrix
