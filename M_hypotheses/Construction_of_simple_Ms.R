@@ -11,7 +11,7 @@
 
 ## No data is needed if internet conection is available.
 
-## The main processes are performed the package ellisenm from GitHub. To install
+## The main processes are performed using the package ellisenm from GitHub. To install
 ## this package see instructions in https://github.com/marlonecobos/ellipsenm.
 
 

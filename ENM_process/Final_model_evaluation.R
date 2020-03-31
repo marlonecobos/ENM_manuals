@@ -12,7 +12,7 @@
 ## No data is needed if model calibration and final models were performed as 
 ## indicated in the links above.
 
-## The main processes are performed the package kuenm from GitHub. To install
+## The main processes are performed using the package kuenm from GitHub. To install
 ## this package see instructions in https://github.com/marlonecobos/kuenm.
 
 
