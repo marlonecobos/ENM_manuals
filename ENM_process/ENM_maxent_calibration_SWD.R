@@ -165,6 +165,40 @@ enm_calibration_swd <- function(all_occurrences, train_occurrences, test_occurre
 
 
 # Helpers
+prepare_swd <- function(occurrences, species, longitude, latitude, 
+                        data_split_method = "random", train_proportion = 0.5,
+                        raster_layers, sample_size = 10000, save = FALSE,
+                        output_directory, set_seed = 1) {
+  xy <- occurrences[, c(longitude, latitude)]
+  xyval <- raster::extract(raster_layers, xy, cellnumbers = TRUE)
+  xyras <- raster::xyFromCell(raster_layers, xyval[, 1])
+  occ <- data.frame(occurrences[, species], xyras, xyval[, -1])
+  colnames(occ)[1:3] <- c(species, longitude, latitude)
+  
+  back <- raster::rasterToPoints(raster_layers)
+  set.seed(set_seed)
+  back <- back[sample(nrow(back), sample_size), ]
+  back <- data.frame(background = "background", back)
+  names(back)[1:3] <- c("background", longitude, latitude)
+  
+  octi <- which(!paste(occ[, 2], occ[, 3]) %in% paste(back[, 2], back[, 3]))
+  octid <- occ[octi, ]
+  names(octid)[1:3] <- c("background", longitude, latitude)
+  octid$background <- "background"
+  
+  back <- rbind(back, octid)
+  names <- paste0(output_directory, "occurrences")
+  occ <- ellipsenm::split_data(data = occ, data_split_method, longitude, latitude,
+                               train_proportion, save = save, name = names)
+  
+  if (save == TRUE) {
+    write.csv(back, file = paste0(output_directory, "background"), row.names = F)
+  }
+  
+  return(c(occ, background = back))
+}
+
+
 run_maxent <- function(batch, maxent_path) {
   if(.Platform$OS.type == "unix") {
     batfile_path <- file.path(getwd(), paste0(batch, ".sh")) 
