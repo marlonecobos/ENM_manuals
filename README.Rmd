@@ -13,6 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br>
 
+## Citation
+
+Simões, M., Romero-Alvarez, D., Nuñez-Penichet, C., Jiménez, L. & Cobos, M.E. (2020) General theory and good practices in ecological niche modeling: A basic guide. Biodiversity Informatics 15, 67–68. https://doi.org/10.17161/bi.v15i2.13376
+
+<br>
+
 ## Description
 
 This repository was created to store R scripts that help to perform common procedures in Ecological Niche Modeling exercises. The scripts are organized according to the main activities that need to be done when creating ecological niche models (ENMs). 
